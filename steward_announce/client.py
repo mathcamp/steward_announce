@@ -4,8 +4,8 @@ def do_list(client):
     """ Format the response from announce.list """
     response = client.cmd('announce/list').json()
     lines = []
-    for announcement in response:
-        lines.append("[{}] {}".format(announcement['id'], announcement['text']))
+    for i, announcement in enumerate(response):
+        lines.append("[{}] {}".format(i, announcement['text']))
     print '\n'.join(lines)
 
 def do_announce(client, *words, **kwargs):
@@ -23,10 +23,12 @@ def do_announce(client, *words, **kwargs):
     color = kwargs.pop('color', None)
     if kwargs:
         raise TypeError("Unrecognized keyword arguments %s" % kwargs)
-    data = {'text': text}
+    params = {'text': text}
+    data = {}
+    params['data'] = data
     if color:
         data['color'] = color
-    client.cmd('announce', **data)
+    client.cmd('announce', **params)
 
 def do_clear(client):
     """ Clear all announcements """
@@ -39,11 +41,10 @@ def do_delete(client):
         print "No announcements to delete"
         return
     do_list(client)
-    ids = [a['id'] for a in announcements]
-    aid = None
-    while aid not in ids:
-        if aid:
-            print "Unrecognized id"
-        aid = raw_input('Delete id? ')
-    client.cmd('announce/delete', id=aid)
-
+    index = -1
+    while index < 0 or index >= len(announcements):
+        try:
+            index = int(raw_input('Delete id? '))
+        except ValueError:
+            pass
+    client.cmd('announce/delete', id=announcements[index]['id'])
