@@ -44,16 +44,18 @@ DATA = {
 
 VERSION_MODULE = os.path.join(HERE, DATA['name'], '__version__.py')
 
+
 def _git_describe():
     """ Describe the current revision """
     try:
         out = subprocess.check_output(['git', 'describe', '--tags',
-            '--dirty', '--match=[0-9]*'])
+                                       '--dirty', '--match=[0-9]*'])
         return out.strip()
     except subprocess.CalledProcessError as e:
         print "Error parsing git revision!"
         print e.output
         raise
+
 
 def get_version():
     """
@@ -67,7 +69,7 @@ def get_version():
         # distributed with the package
         with open(VERSION_MODULE, 'w') as version_file:
             version_file.write('"""This file is auto-generated during the '
-                'package-building process"""\n')
+                               'package-building process"""\n')
             version_file.write("__version__ = '" + version + "'")
         return version
     else:

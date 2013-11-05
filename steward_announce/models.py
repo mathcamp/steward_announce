@@ -33,7 +33,7 @@ class Announcement(Base):
         self.text = text
         self.data = kwargs
 
-    def __json__(self, request):
+    def __json__(self, request=None):
         return {'id': self.id,
                 'text': self.text,
                 'data': self.data,

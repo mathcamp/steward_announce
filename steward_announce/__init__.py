@@ -21,8 +21,6 @@ def include_client(client):
 
 def includeme(config):
     """ Configure the app """
-    config.add_acl_from_settings('announce')
-
     config.add_route('announce', '/announce')
     config.add_route('announce_list', '/announce/list')
     config.add_route('announce_clear', '/announce/clear')
