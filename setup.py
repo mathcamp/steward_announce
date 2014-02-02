@@ -11,6 +11,7 @@ CHANGES = open(os.path.join(HERE, 'CHANGES.txt')).read()
 REQUIREMENTS = [
     'steward',
     'steward_sqlalchemy',
+    'steward_tasks',
 ]
 
 DATA = {
