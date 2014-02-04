@@ -9,6 +9,8 @@ def include_client(client):
     client.set_cmd('announce.delete', 'steward_announce.client:do_delete')
     client.set_cmd('announce.list', 'steward_announce.client:do_list')
 
+    # TODO
+    #client.sub('announce')
     announcements = client.cmd('announce/list').json()
     for announcement in announcements:
         text = announcement['text']
