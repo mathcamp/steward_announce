@@ -1,5 +1,6 @@
 """ Client commands """
 
+
 def do_list(client):
     """ Format the response from announce.list """
     response = client.cmd('announce/list').json()
@@ -7,6 +8,7 @@ def do_list(client):
     for i, announcement in enumerate(response):
         lines.append("[{}] {}".format(i, announcement['text']))
     print '\n'.join(lines)
+
 
 def do_announce(client, *words, **kwargs):
     """
@@ -30,9 +32,11 @@ def do_announce(client, *words, **kwargs):
         data['color'] = color
     client.cmd('announce', **params)
 
+
 def do_clear(client):
     """ Clear all announcements """
     client.cmd('announce/clear')
+
 
 def do_delete(client):
     """ Delete an announcement """
